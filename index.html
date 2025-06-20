@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia FDMA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+    <main>
+        <img src="assets/logo_frida.png" alt="Logo Frida" class="logo">
+        <h1 class="bienvenida">¡Bienvenido!</h1>
+        <p class="subbienvenida">Control de asistencia FDMA</p>
+        <div id="login">
+            <form id="loginForm">
+                <label for="pin" class="label-pin">INGRESA TU PIN</label>
+                <input type="password" id="pin" name="pin" required>
+                <button type="submit">Acceder</button>
+            </form>
+        </div>
+        <div id="registro" style="display: none;">
+            <h2>Entrada/Salida</h2>
+            <button id="btnEntrada">Registrar Entrada</button>
+            <button id="btnSalida">Registrar Salida</button>
+            <div id="selfieArea" style="display: none;">
+                <p id="selfieInstructions">Toma una selfie para validar tu registro:</p>
+                <video id="video" width="320" height="240" autoplay></video>
+                <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+                <button id="btnSelfie">Capturar Selfie</button>
+                <img id="selfiePreview" style="display:none;max-width:180px;border-radius:12px;">
+            </div>
+            <button id="btnEnviar" style="display:none;">Enviar Registro</button>
+            <p id="mensajeRegistro"></p>
+        </div>
+
+        <div id="adminPanel" style="display: none;">
+            <h2 class="panel-admin-header">PANEL DE ADMINISTRACIÓN</h2>
+            <!-- Bloques colapsables -->
+            <div class="admin-section">
+                <div class="collapsible-header">Agregar/Editar Usuario</div>
+                <div class="collapsible-content">
+                    <div class="admin-user-block">
+                        <div class="admin-user-group">
+                            <h3 class="admin-block-title">Agregar/Editar Usuario</h3>
+                            <form id="userForm">
+                                <input type="text" id="nombreUsuario" placeholder="Nombre completo" required>
+                                <input type="text" id="pinUsuario" placeholder="PIN" required>
+                                <select id="tipoUsuario">
+                                    <option value="user">Usuario</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                                <button type="submit">Guardar Usuario</button>
+                            </form>
+                        </div>
+                        <hr class="admin-division">
+                        <div class="admin-user-group">
+                            <h3 class="admin-block-title">Editar Usuario</h3>
+                            <form id="editUserForm" style="display:none;">
+                                <input type="hidden" id="editIndex">
+                                <input type="text" id="editNombre" placeholder="Nombre completo" required>
+                                <input type="text" id="editPin" placeholder="PIN" required>
+                                <select id="editTipo">
+                                    <option value="user">Usuario</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                                <button type="submit">Actualizar Usuario</button>
+                            </form>
+                        </div>
+                        <hr class="admin-division">
+                        <div class="admin-user-group">
+                            <h3 class="admin-block-title">Lista de Usuarios</h3>
+                            <ul id="userList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-section">
+                <div class="collapsible-header">Cargar Horario Semanal</div>
+                <div class="collapsible-content">
+                    <input type="file" id="inputHorario" accept=".csv,.xlsx">
+                    <button id="btnCargarHorario">Cargar</button>
+                    <div id="horariosCargados"></div>
+                </div>
+            </div>
+            <div class="admin-section">
+                <div class="collapsible-header">Filtrar registros</div>
+                <div class="collapsible-content">
+                    <label for="filtroFecha">Fecha:</label>
+                    <input type="date" id="filtroFecha">
+                    <label for="filtroEmpleado">Empleado:</label>
+                    <select id="filtroEmpleado"><option value="">Todos</option></select>
+                </div>
+            </div>
+            <div class="admin-section">
+                <div class="collapsible-header">Registros</div>
+                <div class="collapsible-content">
+                    <button id="btnExportar">Exportar a Excel</button>
+                    <table id="tablaRegistros">
+                        <thead>
+                            <tr>
+                                <th>Fecha y Hora</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Selfie</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="height:32px"></div>
+            <div class="footer-btn-logout">
+                <button id="btnSalirAdmin">Salir</button>
+            </div>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
